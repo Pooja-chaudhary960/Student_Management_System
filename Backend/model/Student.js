@@ -1,0 +1,42 @@
+
+import mongoose from "mongoose";
+
+const studentSchema = new mongoose.Schema({
+    name:{
+        type:String,
+        required:true
+    },
+    email:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    gender:{
+        type:String,
+        required:true,
+        enum:["Male","Female","Others"]
+    },
+    phoneNo:{
+            type:String
+    },
+    address:{
+        type:String
+    },
+    teachers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Teacher",
+      },
+    ],
+     courses: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Course",
+      },
+    ],
+});
+
+const Student = mongoose.model("Student", studentSchema)
+
+export default Student;
+

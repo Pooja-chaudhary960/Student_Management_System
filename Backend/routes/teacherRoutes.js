@@ -1,0 +1,12 @@
+import express from "express"
+import { createTeacher, deleteTeacherById, getAllTeachers, getTeacherById, updateTeacherById } from "../controller/teacherController.js";
+
+const router = express.Router();
+
+router.post("/teachers", createTeacher);
+router.get("/getTeachers", getAllTeachers);
+router.get("/getTeachers/:id",getTeacherById);
+router.delete("/deleteTeacher/:id",deleteTeacherById);
+router.put("/updateTeacher/:id",updateTeacherById);
+
+export default router;
