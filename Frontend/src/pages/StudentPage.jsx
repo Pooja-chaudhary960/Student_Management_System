@@ -121,7 +121,7 @@ const StudentPage = () => {
                 <td className="border border-gray-300 px-4 py-2">
                   <div className="flex gap-2">
                     <button
-                      onClick={() => navigate(`/edit/${student._id}`)}
+                      onClick={() => navigate(`/editStudent/${student._id}`)}
                       className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
                     >
                       Edit

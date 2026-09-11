@@ -132,13 +132,22 @@ const StudentForm = () => {
             placeholder="Enter Course ID"
             className="w-full border p-2 rounded"
           />
+          <div className="flex gap-4 mt-4">
+            <button
+              type="button"
+              onClick={() => navigate("/teacherPage")}
+              className="w-1/2 px-6 py-3 rounded-lg border border-slate-300 bg-white text-slate-700 font-semibold hover:bg-slate-100 transition"
+            >
+              Cancel
+            </button>
 
-          <button
-            type="submit"
-            className="w-full bg-green-500 hover:bg-green-600 text-white p-2 rounded"
-          >
-            {isEditMode ? "Edit Student" : "Add Student"}
-          </button>
+            <button
+              type="submit"
+              className="w-1/2 px-6 py-3 rounded-lg bg-green-500 hover:bg-green-600 text-white font-semibold transition"
+            >
+              {isEditMode ? "Edit Student" : "Add Student"}
+            </button>
+          </div>
         </Form>
       </Formik>
     </div>
