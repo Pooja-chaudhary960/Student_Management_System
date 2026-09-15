@@ -8,6 +8,7 @@ import CoursePage from './pages/CoursePage.jsx';
 import StudentForm from './components/StudentForm.jsx';
 import CourseForm from './components/CourseForm.jsx';
 import TeacherForm from './components/TeacherForm.jsx';
+import LoginForm from './components/LoginForm.jsx';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path='/editStudent/:id' element={<StudentForm />} />
           <Route path='/editTeacher/:id' element={<TeacherForm/>}/>
           <Route path='/editCourse/:id' element={<CourseForm/>}/>
+         <Route path="/login" element={<LoginForm />} />
         </Route>
       </Routes>
     </>
