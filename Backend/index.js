@@ -4,6 +4,7 @@ import connectDB from "./config/db.js";
 import studentRoutes from "./routes/studentRoutes.js";
 import teacherRoutes from "./routes/teacherRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 import cors from 'cors'
 
 dotenv.config();
@@ -24,6 +25,7 @@ app.use(cors({
 app.use("/api",studentRoutes)
 app.use("/api",teacherRoutes)
 app.use("/api",courseRoutes)
+app.use("/api",userRoutes)
 
 
 
