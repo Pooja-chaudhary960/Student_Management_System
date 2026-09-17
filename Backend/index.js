@@ -6,11 +6,13 @@ import teacherRoutes from "./routes/teacherRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import cors from 'cors'
+import cookieParser from "cookie-parser"
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 const port = 4000;
 
 //Connect to database
@@ -20,12 +22,13 @@ connectDB();
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
   origin: "http://localhost:5173", 
+  credentials: true
 }));
 
-app.use("/api",studentRoutes)
-app.use("/api",teacherRoutes)
-app.use("/api",courseRoutes)
-app.use("/api",userRoutes)
+app.use("/api",studentRoutes);
+app.use("/api",teacherRoutes);
+app.use("/api",courseRoutes);
+app.use("/api",userRoutes);
 
 
 
