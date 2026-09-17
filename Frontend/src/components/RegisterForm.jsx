@@ -1,12 +1,12 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const navigate = useNavigate();
-
   const initialValues = {
+    username: "",
     email: "",
     password: "",
   };
@@ -14,17 +14,13 @@ const LoginForm = () => {
   const handleSubmit = async (values) => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/login",
+        "http://localhost:4000/api/register",
         values,
-        {
-          withCredentials: true,
-        },
       );
 
-      console.log(response.data);
-
       if (response.data.success) {
-        navigate("/");
+        window.alert("Register Successfully");
+        navigate("/login");
       }
     } catch (error) {
       console.log(error);
@@ -36,10 +32,22 @@ const LoginForm = () => {
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         <Form className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg">
           <h2 className="text-2xl font-bold text-center text-slate-800 mb-6">
-            Login
+            Register
           </h2>
 
-          {/* Email */}
+          <div className="mb-5">
+            <label className="block text-sm font-medium text-slate-700 mb-2">
+              Username
+            </label>
+
+            <Field
+              type="text"
+              name="username"
+              placeholder="Enter username"
+              className="w-full px-4 py-3 border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+
           <div className="mb-5">
             <label className="block text-sm font-medium text-slate-700 mb-2">
               Email
@@ -53,7 +61,6 @@ const LoginForm = () => {
             />
           </div>
 
-          {/* Password */}
           <div className="mb-6">
             <label className="block text-sm font-medium text-slate-700 mb-2">
               Password
@@ -67,27 +74,16 @@ const LoginForm = () => {
             />
           </div>
 
-          {/* Login Button */}
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-200"
           >
-            Login
+            Register
           </button>
-
-          <p className="text-center mt-5 text-slate-600">
-            Don't have an account?{" "}
-            <Link
-              to="/register"
-              className="text-blue-600 font-semibold hover:underline"
-            >
-              Register
-            </Link>
-          </p>
         </Form>
       </Formik>
     </div>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

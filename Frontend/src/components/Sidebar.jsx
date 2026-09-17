@@ -1,16 +1,28 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Sidebar = () => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // 1. Clear local authentication data
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/logout",
+        {},
+        {
+          withCredentials: true,
+        },
+      );
 
-    // 2. Redirect to Login route
-    navigate('/login', { replace: true });
+      console.log(response.data);
+
+      if (response.data.success) {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -22,13 +34,22 @@ const Sidebar = () => {
       <Link to="/" className="text-white px-4 py-3 rounded hover:bg-slate-700">
         Dashboard
       </Link>
-      <Link to="/studentPage" className="text-white px-4 py-3 rounded hover:bg-slate-700">
+      <Link
+        to="/studentPage"
+        className="text-white px-4 py-3 rounded hover:bg-slate-700"
+      >
         Student
       </Link>
-      <Link to="/teacherPage" className="text-white px-4 py-3 rounded hover:bg-slate-700">
+      <Link
+        to="/teacherPage"
+        className="text-white px-4 py-3 rounded hover:bg-slate-700"
+      >
         Teacher
       </Link>
-      <Link to="/coursePage" className="text-white px-4 py-3 rounded hover:bg-slate-700">
+      <Link
+        to="/coursePage"
+        className="text-white px-4 py-3 rounded hover:bg-slate-700"
+      >
         Course
       </Link>
 

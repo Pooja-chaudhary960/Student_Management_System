@@ -9,24 +9,33 @@ import StudentForm from './components/StudentForm.jsx';
 import CourseForm from './components/CourseForm.jsx';
 import TeacherForm from './components/TeacherForm.jsx';
 import LoginForm from './components/LoginForm.jsx';
+import RegisterForm from './components/RegisterForm.jsx';
 
 function App() {
   return (
     <>
       <Routes>
+
+        {/* Login and Register - WITHOUT Sidebar */}
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterForm />} />
+
+        {/* Main Layout - WITH Sidebar */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/studentPage" element={<StudentPage />} />
-          <Route path='/teacherPage' element={<TeacherPage/>}/>
-          <Route path='/coursePage' element={<CoursePage />}/>
-          <Route path='/addStudent' element={<StudentForm/>}/>
-          <Route path='/addCourse' element={<CourseForm/>}/>
-          <Route path='addTeacher' element={<TeacherForm/>}/>
-          <Route path='/editStudent/:id' element={<StudentForm />} />
-          <Route path='/editTeacher/:id' element={<TeacherForm/>}/>
-          <Route path='/editCourse/:id' element={<CourseForm/>}/>
-         <Route path="/login" element={<LoginForm />} />
+          <Route path="/teacherPage" element={<TeacherPage />} />
+          <Route path="/coursePage" element={<CoursePage />} />
+
+          <Route path="/addStudent" element={<StudentForm />} />
+          <Route path="/addCourse" element={<CourseForm />} />
+          <Route path="/addTeacher" element={<TeacherForm />} />
+
+          <Route path="/editStudent/:id" element={<StudentForm />} />
+          <Route path="/editTeacher/:id" element={<TeacherForm />} />
+          <Route path="/editCourse/:id" element={<CourseForm />} />
         </Route>
+
       </Routes>
     </>
   )
