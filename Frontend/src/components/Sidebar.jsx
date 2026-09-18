@@ -16,9 +16,9 @@ const Sidebar = () => {
       );
 
       console.log(response.data);
-
+      localStorage.clear("token")
       if (response.data.success) {
-        navigate("/login");
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
@@ -31,7 +31,7 @@ const Sidebar = () => {
         Student Management System
       </h2>
 
-      <Link to="/" className="text-white px-4 py-3 rounded hover:bg-slate-700">
+      <Link to="/dashboard" className="text-white px-4 py-3 rounded hover:bg-slate-700">
         Dashboard
       </Link>
       <Link

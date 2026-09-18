@@ -1,28 +1,29 @@
-import './App.css';
-import MainLayout from './components/MainLayout';
-import { Route, Routes } from 'react-router-dom';
-import StudentPage from './pages/StudentPage.jsx';
-import TeacherPage from './pages/TeacherPage.jsx';
-import Dashboard from './pages/Dashboard.jsx';
-import CoursePage from './pages/CoursePage.jsx';
-import StudentForm from './components/StudentForm.jsx';
-import CourseForm from './components/CourseForm.jsx';
-import TeacherForm from './components/TeacherForm.jsx';
-import LoginForm from './components/LoginForm.jsx';
-import RegisterForm from './components/RegisterForm.jsx';
+import "./App.css";
+import MainLayout from "./components/MainLayout";
+import { Route, Routes } from "react-router-dom";
+
+import StudentPage from "./pages/StudentPage.jsx";
+import TeacherPage from "./pages/TeacherPage.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import CoursePage from "./pages/CoursePage.jsx";
+
+import StudentForm from "./components/StudentForm.jsx";
+import CourseForm from "./components/CourseForm.jsx";
+import TeacherForm from "./components/TeacherForm.jsx";
+
+import LoginForm from "./components/LoginForm.jsx";
+import RegisterForm from "./components/RegisterForm.jsx";
+import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
 
 function App() {
   return (
-    <>
-      <Routes>
+    <Routes>
+      <Route path="/" element={<LoginForm />} />
+      <Route path="/register" element={<RegisterForm />} />
 
-        {/* Login and Register - WITHOUT Sidebar */}
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/register" element={<RegisterForm />} />
-
-        {/* Main Layout - WITH Sidebar */}
+      <Route element={<ProtectedRoutes />}>
         <Route element={<MainLayout />}>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/studentPage" element={<StudentPage />} />
           <Route path="/teacherPage" element={<TeacherPage />} />
           <Route path="/coursePage" element={<CoursePage />} />
@@ -35,10 +36,9 @@ function App() {
           <Route path="/editTeacher/:id" element={<TeacherForm />} />
           <Route path="/editCourse/:id" element={<CourseForm />} />
         </Route>
-
-      </Routes>
-    </>
-  )
+      </Route>
+    </Routes>
+  );
 }
 
 export default App;
