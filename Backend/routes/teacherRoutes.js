@@ -1,12 +1,14 @@
 import express from "express"
 import { createTeacher, deleteTeacherById, getAllTeachers, getTeacherById, updateTeacherById } from "../controller/teacherController.js";
 
+import protect from "../middleware/authMiddleware.js";
+
 const router = express.Router();
 
-router.post("/teachers", createTeacher);
+router.post("/teachers",protect, createTeacher);
 router.get("/getTeachers", getAllTeachers);
 router.get("/getTeachers/:id",getTeacherById);
-router.delete("/deleteTeacher/:id",deleteTeacherById);
-router.put("/updateTeacher/:id",updateTeacherById);
+router.delete("/deleteTeacher/:id",protect,deleteTeacherById);
+router.put("/updateTeacher/:id",protect,updateTeacherById);
 
 export default router;
