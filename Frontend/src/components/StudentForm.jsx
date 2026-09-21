@@ -2,6 +2,7 @@ import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import apiClient from "../api/apiClient";
 
 const StudentForm = () => {
   const [students, setStudents] = useState(null);
@@ -26,7 +27,7 @@ const StudentForm = () => {
 
   const getTeachers = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/api/getTeachers");
+      const response = await apiClient.get("/getTeachers");
       setTeachers(response.data.teachers);
     } catch (error) {
       console.log("Error", error);
@@ -35,7 +36,7 @@ const StudentForm = () => {
 
   const getCourses = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/api/getCourse");
+      const response = await apiClient.get("/getCourse");
       setCourses(response.data.courses);
     } catch (error) {
       console.log("Error", error);
@@ -54,8 +55,8 @@ const StudentForm = () => {
     try {
       setLoading(true);
 
-      const response = await axios.get(
-        `http://localhost:4000/api/getStudent/${id}`,
+      const response = await apiClient.get(
+        `/getStudent/${id}`,
       );
 
       console.log(response.data);
@@ -75,12 +76,12 @@ const StudentForm = () => {
 
     try {
       if (id) {
-        await axios.put(
-          `http://localhost:4000/api/updateStudent/${id}`,
+        await apiClient.put(
+          `/updateStudent/${id}`,
           values,
         );
       } else {
-        await axios.post("http://localhost:4000/api/students", values);
+        await apiClient.post("/students", values);
       }
 
       navigate("/studentPage");

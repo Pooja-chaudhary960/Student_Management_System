@@ -3,6 +3,7 @@ import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import apiClient from "../api/apiClient";
 
 const CourseForm = () => {
   const [course, setCourse] = useState(null);
@@ -30,8 +31,8 @@ const CourseForm = () => {
     try {
       setLoading(true);
 
-      const response = await axios.get(
-        `http://localhost:4000/api/getCourse/${id}`
+      const response = await apiClient.get(
+        `/getCourse/${id}`
       );
 
       console.log(response.data);
@@ -51,13 +52,13 @@ const CourseForm = () => {
 
     try {
       if (id) {
-        await axios.put(
-          `http://localhost:4000/api/updateCourse/${id}`,
+        await apiClient.put(
+          `/updateCourse/${id}`,
           values
         );
       } else {
-        await axios.post(
-          "http://localhost:4000/api/course",
+        await apiClient.post(
+          "/course",
           values
         );
       }

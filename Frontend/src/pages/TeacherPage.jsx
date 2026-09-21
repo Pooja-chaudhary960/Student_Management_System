@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import apiClient from "../api/apiClient";
 
 const TeacherPage = () => {
   const navigate = useNavigate();
@@ -13,8 +14,8 @@ const TeacherPage = () => {
 
   const getTeachers = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:4000/api/getTeachers"
+      const response = await apiClient.get(
+        "/getTeachers"
       );
 
       console.log(response.data);
@@ -35,8 +36,8 @@ const TeacherPage = () => {
         return;
       }
 
-      await axios.delete(
-        `http://localhost:4000/api/deleteTeacher/${id}`
+      await apiClient.delete(
+        `/deleteTeacher/${id}`
       );
 
       setTeachers(

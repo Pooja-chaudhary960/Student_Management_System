@@ -1,14 +1,15 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import apiClient from "../api/apiClient";
 
 const Sidebar = () => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/logout",
+      const response = await apiClient.post(
+        "/logout",
         {},
         {
           withCredentials: true,

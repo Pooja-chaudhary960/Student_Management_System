@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import apiClient from "../api/apiClient";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -13,13 +14,9 @@ const LoginForm = () => {
 
   const handleSubmit = async (values) => {
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/login",
-        values,
-        {
-          withCredentials: true,
-        },
-      );
+      const response = await apiClient.post("/login", values, {
+        withCredentials: true,
+      });
 
       console.log(response);
       if (response.data.success) {

@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import apiClient from "../api/apiClient";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -13,8 +14,8 @@ const RegisterForm = () => {
 
   const handleSubmit = async (values) => {
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/register",
+      const response = await apiClient.post(
+        "/register",
         values,
       );
 

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import apiClient from "../api/apiClient";
 
 const CoursePage = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const CoursePage = () => {
 
   const getCourses = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/api/getCourse");
+      const response = await apiClient.get("/getCourse");
 
       console.log(response.data);
 
@@ -33,7 +34,7 @@ const CoursePage = () => {
         return;
       }
 
-      await axios.delete(`http://localhost:4000/api/deleteCourse/${id}`);
+      await apiClient.delete(`/deleteCourse/${id}`);
 
       setCourses(courses.filter((course) => course._id !== id));
 

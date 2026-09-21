@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import apiClient from "../api/apiClient";
 
 const Dashboard = () => {
   const [students, setStudents] = useState([]);
@@ -8,16 +9,16 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     try {
-      const studentResponse = await axios.get(
-        "http://localhost:4000/api/getStudent",
+      const studentResponse = await apiClient.get(
+        "/getStudent",
       );
 
-      const teacherResponse = await axios.get(
-        "http://localhost:4000/api/getTeachers",
+      const teacherResponse = await apiClient.get(
+        "/getTeachers",
       );
 
-      const courseResponse = await axios.get(
-        "http://localhost:4000/api/getCourse",
+      const courseResponse = await apiClient.get(
+        "/getCourse",
       );
 
       setStudents(studentResponse.data.students);

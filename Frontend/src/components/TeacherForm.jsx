@@ -2,6 +2,7 @@ import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import apiClient from "../api/apiClient";
 
 const TeacherForm = () => {
   const [teacher, setTeacher] = useState(null);
@@ -26,7 +27,7 @@ const TeacherForm = () => {
   const getCourses = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/getCourse"
+        "/getCourse"
       );
 
       setCourses(response.data.courses);
@@ -40,8 +41,8 @@ const TeacherForm = () => {
     try {
       setLoading(true);
 
-      const response = await axios.get(
-        `http://localhost:4000/api/getTeachers/${teacherId}`
+      const response = await apiClient.get(
+        `/getTeachers/${teacherId}`
       );
 
       console.log("Teacher API response:", response.data);
@@ -83,15 +84,15 @@ const TeacherForm = () => {
 
     try {
       if (id) {
-        await axios.put(
-          `http://localhost:4000/api/updateTeacher/${id}`,
+        await apiClient.put(
+          `/updateTeacher/${id}`,
           values
         );
 
         alert("Teacher updated successfully!");
       } else {
-        await axios.post(
-          "http://localhost:4000/api/teachers",
+        await axios.apiClient(
+          "/teachers",
           values
         );
 
