@@ -1,28 +1,19 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../api/apiClient";
+import { useGetApiHooks } from "../hooks/getApiHooks";
 
 const StudentPage = () => {
   const navigate = useNavigate();
 
-  const [students, setStudents] = useState([]);
+const [data] = useGetApiHooks("/getStudent");
+
 
   const handleAddStudent = () => {
     navigate("/addStudent");
   };
 
-  const getStudents = async () => {
-    try {
-      const response = await apiClient.get("/getStudent");
 
-      console.log(response.data);
-
-      setStudents(response.data.students);
-    } catch (error) {
-      console.error("Error occurred:", error);
-    }
-  };
 
   const handleDelete = async (id) => {
     try {
@@ -45,9 +36,6 @@ const StudentPage = () => {
     }
   };
 
-  useEffect(() => {
-    getStudents();
-  }, []);
 
   return (
     <div className="p-6">
@@ -85,7 +73,7 @@ const StudentPage = () => {
           </thead>
 
           <tbody>
-            {students.map((student) => (
+            {data?.students?.map((student) => (
               <tr key={student._id} className="hover:bg-gray-50">
                 <td className="border border-gray-300 px-4 py-2">
                   {student.name}

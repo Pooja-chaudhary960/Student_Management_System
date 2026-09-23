@@ -2,28 +2,16 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../api/apiClient";
+import { useGetApiHooks } from "../hooks/getApiHooks";
 
 const CoursePage = () => {
   const navigate = useNavigate();
 
-  const [courses, setCourses] = useState([]);
+  const [data] = useGetApiHooks("/getCourse");
 
   const handleAddCourse = () => {
     navigate("/addCourse");
   };
-
-  const getCourses = async () => {
-    try {
-      const response = await apiClient.get("/getCourse");
-
-      console.log(response.data);
-
-      setCourses(response.data.courses);
-    } catch (error) {
-      console.error("Error occurred:", error);
-    }
-  };
-
   const handleDelete = async (id) => {
     try {
       const confirmDelete = window.confirm(
@@ -44,10 +32,6 @@ const CoursePage = () => {
       alert("Failed to delete course");
     }
   };
-
-  useEffect(() => {
-    getCourses();
-  }, []);
 
   return (
     <div className="min-h-screen bg-slate-100 p-6">
@@ -108,7 +92,7 @@ const CoursePage = () => {
 
             <tbody>
 
-              {courses.map((course) => (
+              {data?.courses?.map((course) => (
 
                 <tr
                   key={course._id}

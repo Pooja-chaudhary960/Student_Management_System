@@ -20,7 +20,6 @@ function App() {
     <Routes>
       <Route path="/" element={<LoginForm />} />
       <Route path="/register" element={<RegisterForm />} />
-
       <Route element={<ProtectedRoutes />}>
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />

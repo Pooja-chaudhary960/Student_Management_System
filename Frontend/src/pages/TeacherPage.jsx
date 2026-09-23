@@ -1,29 +1,15 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../api/apiClient";
+import { useGetApiHooks } from "../hooks/getApiHooks";
 
 const TeacherPage = () => {
   const navigate = useNavigate();
 
-  const [teachers, setTeachers] = useState([]);
+ const [data] = useGetApiHooks("/getTeachers");
 
   const handleAddTeacher = () => {
     navigate("/addTeacher");
-  };
-
-  const getTeachers = async () => {
-    try {
-      const response = await apiClient.get(
-        "/getTeachers"
-      );
-
-      console.log(response.data);
-
-      setTeachers(response.data.teachers);
-    } catch (error) {
-      console.error("Error occurred:", error);
-    }
   };
 
   const handleDelete = async (id) => {
@@ -50,10 +36,6 @@ const TeacherPage = () => {
       alert("Failed to delete teacher");
     }
   };
-
-  useEffect(() => {
-    getTeachers();
-  }, []);
 
   return (
     <div className="p-6">
@@ -115,7 +97,7 @@ const TeacherPage = () => {
 
           <tbody>
 
-            {teachers.map((teacher) => (
+            {data?.teachers?.map((teacher) => (
 
               <tr
                 key={teacher._id}

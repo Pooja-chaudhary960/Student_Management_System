@@ -1,37 +1,12 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import apiClient from "../api/apiClient";
+import { useGetApiHooks } from "../hooks/getApiHooks";
 
 const Dashboard = () => {
-  const [students, setStudents] = useState([]);
-  const [teachers, setTeachers] = useState([]);
-  const [courses, setCourses] = useState([]);
+  const [student] = useGetApiHooks("/getStudent");
+  const [teacher] = useGetApiHooks("/getTeachers");
+  const [course] = useGetApiHooks("/getCourse");
 
-  const fetchData = async () => {
-    try {
-      const studentResponse = await apiClient.get(
-        "/getStudent",
-      );
-
-      const teacherResponse = await apiClient.get(
-        "/getTeachers",
-      );
-
-      const courseResponse = await apiClient.get(
-        "/getCourse",
-      );
-
-      setStudents(studentResponse.data.students);
-      setTeachers(teacherResponse.data.teachers);
-      setCourses(courseResponse.data.courses);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <div className="min-h-screen bg-slate-100 p-8">
@@ -54,7 +29,7 @@ const Dashboard = () => {
               </p>
 
               <h2 className="text-4xl font-bold text-slate-800 mt-2">
-                {students.length}
+                {student?.students?.length}
               </h2>
 
               <p className="text-blue-500 text-sm mt-2">Registered Students</p>
@@ -67,7 +42,7 @@ const Dashboard = () => {
         </div>
 
         {/* Teachers */}
-        <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition duration-300 border-l-4 border-green-500">
+         <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition duration-300 border-l-4 border-green-500">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-slate-500 text-sm font-medium">
@@ -75,7 +50,7 @@ const Dashboard = () => {
               </p>
 
               <h2 className="text-4xl font-bold text-slate-800 mt-2">
-                {teachers.length}
+                {teacher?.teachers?.length}
               </h2>
 
               <p className="text-green-500 text-sm mt-2">Registered Teachers</p>
@@ -85,10 +60,10 @@ const Dashboard = () => {
               👨‍🏫
             </div>
           </div>
-        </div>
+        </div> 
 
         {/* Courses */}
-        <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition duration-300 border-l-4 border-purple-500">
+         <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition duration-300 border-l-4 border-purple-500">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-slate-500 text-sm font-medium">
@@ -96,7 +71,7 @@ const Dashboard = () => {
               </p>
 
               <h2 className="text-4xl font-bold text-slate-800 mt-2">
-                {courses.length}
+                {course?.courses?.length}
               </h2>
 
               <p className="text-purple-500 text-sm mt-2">Available Courses</p>

@@ -1,5 +1,4 @@
 import { Formik, Form, Field } from "formik";
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import apiClient from "../api/apiClient";
@@ -26,7 +25,7 @@ const TeacherForm = () => {
   // Get all courses
   const getCourses = async () => {
     try {
-      const response = await axios.get(
+      const response = await apiClient.get(
         "/getCourse"
       );
 
@@ -91,7 +90,7 @@ const TeacherForm = () => {
 
         alert("Teacher updated successfully!");
       } else {
-        await axios.apiClient(
+        await apiClient.post(
           "/teachers",
           values
         );
