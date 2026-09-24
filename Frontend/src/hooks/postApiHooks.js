@@ -2,26 +2,29 @@ import { useEffect, useState } from "react";
 import apiClient from "../api/apiClient";
 
 export const usePostApiHooks = (url) => {
-    
-    
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const postData = async (values) => {
     try {
-        
-      const response = await apiClient.post(url,values);
+      setLoading(true);
+      setError(null);
+
+      const response = await apiClient.post(url, values);
 
       console.log(response);
-      setData(response.data)
-      return response.data
-
-     
+      setData(response.data);
+      return response.data;
     } catch (error) {
-      console.error("Error occurred:", error);
+      console.error('Data:', error.response.data.errors);
+      setError(error.response.data.errors);
+    } finally {
+      setLoading(false);
     }
   };
-  useEffect(() => {
-    postData();
-  }, [url]);
- console.log(data)
-  return {data,postData}
+
+  console.log(data);
+
+  return { data, postData, loading, error };
 };

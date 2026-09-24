@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import { useNavigate, Link } from "react-router-dom";
 import apiClient from "../api/apiClient";
+import { usePostApiHooks } from "../hooks/postApiHooks";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -11,22 +12,22 @@ const LoginForm = () => {
     password: "",
   };
 
+  const { postData,error } = usePostApiHooks("/login");
+
   const handleSubmit = async (values) => {
     try {
-      const response = await apiClient.post("/login", values, {
-        withCredentials: true,
-      });
+      const response = await postData(values);
 
       console.log(response);
-      if (response.data.success) {
-        localStorage.setItem("token", response.data.token);
+
+      if (response.success) {
+        localStorage.setItem("token", response.token);
         navigate("/dashboard");
       }
     } catch (error) {
-      console.log(error);
+      console.log(error?.response);
     }
   };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-100">
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
@@ -34,6 +35,8 @@ const LoginForm = () => {
           <h2 className="text-2xl font-bold text-center text-slate-800 mb-6">
             Login
           </h2>
+
+          {error && <div className="text-red-400">{error}</div>}
 
           <div className="mb-5">
             <label className="block text-sm font-medium text-slate-700 mb-2">
@@ -79,6 +82,7 @@ const LoginForm = () => {
           </p>
         </Form>
       </Formik>
+
     </div>
   );
 };

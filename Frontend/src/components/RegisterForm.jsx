@@ -1,7 +1,6 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import { useNavigate } from "react-router-dom";
-// import apiClient from "../api/apiClient";
 import { usePostApiHooks } from "../hooks/postApiHooks";
 
 const RegisterForm = () => {
@@ -11,7 +10,7 @@ const RegisterForm = () => {
     email: "",
     password: "",
   };
-  const {postData} = usePostApiHooks("/register");
+  const {postData,error} = usePostApiHooks("/register");
   const handleSubmit = async (values) => {
     try {
       const data = await postData(values);
@@ -19,7 +18,7 @@ const RegisterForm = () => {
       
       if (data.success) {
         window.alert("Register Successfully");
-        navigate("/login");
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
@@ -34,6 +33,7 @@ const RegisterForm = () => {
             Register
           </h2>
 
+{ error && <div className="text-red-500">{error}</div>}
           <div className="mb-5">
             <label className="block text-sm font-medium text-slate-700 mb-2">
               Username
