@@ -5,6 +5,7 @@ import studentRoutes from "./routes/studentRoutes.js";
 import teacherRoutes from "./routes/teacherRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import imageRoutes from "./routes/imageRoutes.js";
 import cors from 'cors'
 import cookieParser from "cookie-parser"
 
@@ -29,6 +30,7 @@ app.use("/api",studentRoutes);
 app.use("/api",teacherRoutes);
 app.use("/api",courseRoutes);
 app.use("/api",userRoutes);
+app.use("/api",imageRoutes);
 
 
 

@@ -9,3 +9,4 @@ export const studentSchema = z.object({
   teachers: z.array(z.string()).min(1, "Select at least one teacher"),
   courses: z.array(z.string()).min(1, "Select at least one course"),
 });
+
