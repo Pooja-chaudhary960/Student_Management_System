@@ -60,7 +60,6 @@ export const DeleteImage = async (req, res) => {
       success: true,
       message: "Image deleted successfully",
     });
-
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -70,3 +69,55 @@ export const DeleteImage = async (req, res) => {
   }
 };
 
+export const updateImage = async (req, res) => {
+  try {
+    const imageId = req.params.id;
+
+    // Get data from request
+    const { title, description } = req.body;
+
+    // Find existing image
+    const image = await Image.findById(imageId);
+
+    // Check image exists
+    if (!image) {
+      return res.status(404).json({
+        success: false,
+        message: "Image not found",
+      });
+    }
+
+    // Update title and description
+    image.title = title || image.title;
+    image.description = description || image.description;
+
+    // If new image is uploaded
+    if (req.file) {
+      // Path of old image
+      const oldImagePath = path.join("uploads", image.image);
+
+      // Delete old image from folder
+      if (fs.existsSync(oldImagePath)) {
+        fs.unlinkSync(oldImagePath);
+      }
+
+      // Store new image filename
+      image.image = req.file.filename;
+    }
+
+    // Save updated data in MongoDB
+    await image.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Image updated successfully",
+      image: image,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error updating image",
+      error: error.message,
+    });
+  }
+};
