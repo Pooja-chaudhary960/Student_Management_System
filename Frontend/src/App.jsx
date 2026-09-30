@@ -6,6 +6,7 @@ import StudentPage from "./pages/StudentPage.jsx";
 import TeacherPage from "./pages/TeacherPage.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import CoursePage from "./pages/CoursePage.jsx";
+import ImagePage from "./pages/ImagePage.jsx";
 
 import StudentForm from "./components/StudentForm.jsx";
 import CourseForm from "./components/CourseForm.jsx";
@@ -14,6 +15,8 @@ import TeacherForm from "./components/TeacherForm.jsx";
 import LoginForm from "./components/LoginForm.jsx";
 import RegisterForm from "./components/RegisterForm.jsx";
 import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
+import ImageUpload from "./components/UploadImage.jsx";
+
 
 function App() {
   return (
@@ -26,6 +29,8 @@ function App() {
           <Route path="/studentPage" element={<StudentPage />} />
           <Route path="/teacherPage" element={<TeacherPage />} />
           <Route path="/coursePage" element={<CoursePage />} />
+          <Route path="/imagePage" element={<ImagePage />} />
+          <Route path="/imageUpload" element={<ImageUpload/>}/>
 
           <Route path="/addStudent" element={<StudentForm />} />
           <Route path="/addCourse" element={<CourseForm />} />
@@ -34,6 +39,7 @@ function App() {
           <Route path="/editStudent/:id" element={<StudentForm />} />
           <Route path="/editTeacher/:id" element={<TeacherForm />} />
           <Route path="/editCourse/:id" element={<CourseForm />} />
+         
         </Route>
       </Route>
     </Routes>
