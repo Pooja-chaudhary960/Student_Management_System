@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import Image from "../model/Image.js";
+import { success } from "zod";
 
 export const geneateImage = async (req, res) => {
   try {
@@ -117,6 +118,30 @@ export const updateImage = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Error updating image",
+      error: error.message,
+    });
+  }
+};
+
+export const getImages = async (req, res) => {
+  try {
+
+    const image = await Image.find();
+    if (!image) {
+      return res.status(404).json({
+        success: false,
+        message: "Image not found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Successfully Retrieved Images",
+      image: image,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error retrieving image",
       error: error.message,
     });
   }

@@ -25,7 +25,7 @@ app.use(cors({
   origin: "http://localhost:5173", 
   credentials: true
 }));
-
+app.use("/upload",express.static('Uploads'));
 app.use("/api",studentRoutes);
 app.use("/api",teacherRoutes);
 app.use("/api",courseRoutes);
