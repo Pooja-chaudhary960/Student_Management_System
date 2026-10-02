@@ -125,14 +125,8 @@ export const updateImage = async (req, res) => {
 
 export const getImages = async (req, res) => {
   try {
-
     const image = await Image.find();
-    if (!image) {
-      return res.status(404).json({
-        success: false,
-        message: "Image not found",
-      });
-    }
+
     res.status(200).json({
       success: true,
       message: "Successfully Retrieved Images",
